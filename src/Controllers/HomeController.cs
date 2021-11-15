@@ -22,10 +22,6 @@ namespace ManagedIdentities.Controllers
         private static string ContainerName = "files";
         private readonly IConfiguration _configuration;
 
-        //static db info such as name etc
-        string databaseName = "Tasks";
-        string containerName = "Items";
-
         public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
@@ -67,16 +63,18 @@ namespace ManagedIdentities.Controllers
             ViewBag.Message = "Got some data but get the key from the key vault.";
             string keyVaultUri = "https://ir77keyvault.vault.azure.net/";
 
-            //Get the connection string key from a KeyVault/
-
-            var kv = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
-            var secret = await kv.GetSecretAsync("StorageConnectionString");
-            string connectionString = secret.Value.Value;
-
-            BlobContainerClient client = new BlobContainerClient(connectionString, ContainerName);
+            
 
             try
             {
+                //Get the connection string key from a KeyVault/
+
+                var kv = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
+                var secret = await kv.GetSecretAsync("StorageConnectionString");
+                string connectionString = secret.Value.Value;
+
+                BlobContainerClient client = new BlobContainerClient(connectionString, ContainerName);
+
                 var results = new List<MyFile>();
                 foreach (var file in client.GetBlobs())
                 {
@@ -96,10 +94,12 @@ namespace ManagedIdentities.Controllers
         {
             ViewBag.Message = "Got some data using a managed identity.";
 
-            BlobContainerClient client = new BlobContainerClient(new Uri("https://ir77storage.blob.core.windows.net/files"), new DefaultAzureCredential());
-
+            
             try
             {
+                BlobContainerClient client = new BlobContainerClient(new Uri("https://ir77storage.blob.core.windows.net/files"), new DefaultAzureCredential());
+
+
                 var results = new List<MyFile>();
                 foreach (var file in client.GetBlobs())
                 {
