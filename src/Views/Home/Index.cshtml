@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ManagedIdentities.Models.MyFile>
+
+@{
+    ViewBag.Title = "List of To-Do Items";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mb-3 alert alert-secondary">
+    @ViewBag.Message
+</div>
+
+<div class="mb-3">
+    <button type="button" class="btn btn-secondary" id="BasicConnection" onclick="location.href='@Url.Action("SimpleConnection")'">Basic Data Fetch - Static Account Key</button>
+</div>
+<div class="mb-3">
+    <button type="button" class="btn btn-secondary" id="BasicConnection" onclick="location.href='@Url.Action("NetworkProtectedConnection")'">Data over protected network - Static Account Key</button>
+</div>
+<div class="mb-3">
+    <button type="button" class="btn btn-secondary" id="BasicConnection" onclick="location.href='@Url.Action("KeyVaultConnection")'">Keyvault Fetch - Account Key From Keyvault</button>
+</div>
+<div class="mb-3">
+    <button type="button" class="btn btn-secondary" id="BasicConnection" onclick="location.href='@Url.Action("ManagedIdentityConnection")'">Connect using a Managed Identity Only</button>
+</div>
+
+@if (Model != null)
+{
+    <div class="mb-12 shadow-sm bg-body rounded">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FileName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateCreated)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FileName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+}
+
+
