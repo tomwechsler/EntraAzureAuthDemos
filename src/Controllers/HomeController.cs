@@ -6,6 +6,7 @@ using ManagedIdentities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -115,7 +116,35 @@ namespace ManagedIdentities.Controllers
 
         }
 
+        public async Task<IActionResult>SPNConnection()
+        {
+            ViewBag.Message = "Got some data using a service principle.";
+            string tenantId = "e9cb468e-94b6-4bcc-b1dd-8a3874ce75b8";
+            string clientSecret = "DTG7Q~R_iCE1xa4w6NRcOsKzfiVeDIZBHBI94";
+            string clientId = "f2e333dd-a081-4273-a2f0-cffd3d1bcae0";
 
+            try
+            {
+                var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+                BlobContainerClient client = new BlobContainerClient(new Uri("https://ir77storage.blob.core.windows.net/files"), credential);
+
+
+                var results = new List<MyFile>();
+                foreach (var file in client.GetBlobs())
+                {
+                    results.Add(new MyFile() { FileName = file.Name, DateCreated = file.Properties.CreatedOn });
+                }
+                return View("Index", results);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+            }
+            return View("Index");
+
+        }
+
+        
 
         public IActionResult Privacy()
         {
