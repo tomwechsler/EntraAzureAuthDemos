@@ -1,1 +1,1 @@
-# AuthenticationDemos
+# EntraAzureAuthDemos
