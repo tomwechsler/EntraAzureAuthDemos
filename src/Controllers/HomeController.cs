@@ -71,7 +71,7 @@ namespace ManagedIdentities.Controllers
                 //Get the connection string key from a KeyVault/
 
                 var kv = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
-                var secret = await kv.GetSecretAsync("StorageConnectionString");
+                var secret = await kv.GetSecretAsync("SecureStorage");
                 string connectionString = secret.Value.Value;
 
                 BlobContainerClient client = new BlobContainerClient(connectionString, ContainerName);
