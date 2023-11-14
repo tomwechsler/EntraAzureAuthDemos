@@ -41,7 +41,7 @@ namespace ManagedIdentities.Controllers
 
             try
             {
-                string connectionString = "BlobEndpoint=https://ir77storage.blob.core.windows.net/;QueueEndpoint=https://ir77storage.queue.core.windows.net/;FileEndpoint=https://ir77storage.file.core.windows.net/;TableEndpoint=https://ir77storage.table.core.windows.net/;SharedAccessSignature=sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacupitfx&se=2021-11-15T19:26:26Z&st=2021-11-15T11:26:26Z&spr=https&sig=j982Wo%2B8c8XfSp%2FnIII9qSAOqul78GqHYyRXEV38jqo%3D";
+                string connectionString = "BlobEndpoint=https://azureentraidauth.blob.core.windows.net/;QueueEndpoint=https://azureentraidauth.queue.core.windows.net/;FileEndpoint=https://azureentraidauth.file.core.windows.net/;TableEndpoint=https://azureentraidauth.table.core.windows.net/;SharedAccessSignature=sv=2022-11-02&ss=bfqt&srt=sco&sp=rlitfx&se=2023-12-26T14:10:26Z&st=2023-11-14T06:10:26Z&spr=https&sig=9ufl5YPoj2RTgACo5na2R55l8UN%2BY6f6NvVoxsosMDc%3D";
 
                 BlobContainerClient client = new BlobContainerClient(connectionString, ContainerName);
 
@@ -62,7 +62,7 @@ namespace ManagedIdentities.Controllers
         public async Task<IActionResult> KeyVaultConnection()
         {
             ViewBag.Message = "Got some data but get the key from the key vault.";
-            string keyVaultUri = "https://ir77keyvault.vault.azure.net/";
+            string keyVaultUri = "https://azureentrakv.vault.azure.net/";
 
             
 
@@ -98,7 +98,7 @@ namespace ManagedIdentities.Controllers
             
             try
             {
-                BlobContainerClient client = new BlobContainerClient(new Uri("https://ir77storage.blob.core.windows.net/files"), new DefaultAzureCredential());
+                BlobContainerClient client = new BlobContainerClient(new Uri("https://azureentraidauth.blob.core.windows.net/files"), new DefaultAzureCredential());
 
 
                 var results = new List<MyFile>();
@@ -126,7 +126,7 @@ namespace ManagedIdentities.Controllers
             try
             {
                 var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
-                BlobContainerClient client = new BlobContainerClient(new Uri("https://ir77storage.blob.core.windows.net/files"), credential);
+                BlobContainerClient client = new BlobContainerClient(new Uri("https://azureentraidauth.blob.core.windows.net/files"), credential);
 
 
                 var results = new List<MyFile>();
